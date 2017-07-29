@@ -1,0 +1,73 @@
+kind: MLApp
+metadata:
+  name: r-studio
+spec:
+  tasks:
+  - name: run
+    resources:
+    - name: script
+      replicas: 1
+      restartPolicy: Never
+      maxRestartCount: 0
+      images:
+        cpu: "r-base:latest"
+      command: Rscript
+      args: hello.R
+      workdir: "$SRC_DIR"
+      volumes:
+      - name: packages
+      - name: training
+      - name: src
+      - name: data
+  uix:
+  - name: rstudio
+    displayName: RStudio
+    images:
+      cpu: "rocker/rstudio:latest"
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+      limits:
+        cpu: 4000m
+        memory: 8Gi
+    ports:
+    - port: 80
+      targetPort: 8787
+      protocol: TCP
+      name: http
+    volumes:
+    - name: packages
+      mountPath: /home/rstudio/packages
+    - name: src
+      mountPath: /home/rstudio/src
+    - name: training
+      mountPath: /home/rstudio/training
+    - name: data
+      mountPath: /home/rstudio/data
+  volumes:
+  - isLibDir: false
+    isTrainLogDir: true
+    mountPath: /training
+    name: training
+    clusterStorage: {{ .storage }}
+    subPath: training
+  - gitRepo:
+      repository: https://github.com/dreyk/kuberlab-r
+    isLibDir: false
+    isTrainLogDir: false
+    mountPath: /src
+    name: src
+    subPath: "/kuberlab-r/src"
+  - isLibDir: true
+    isTrainLogDir: false
+    mountPath: /packages
+    name: packages
+    clusterStorage: {{ .storage }}
+    subPath: packages
+  - isLibDir: false
+    isTrainLogDir: false
+    mountPath: /data
+    name: data
+    clusterStorage: {{ .storage }}
+    subPath: data
