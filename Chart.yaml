@@ -1,0 +1,15 @@
+Description: RStudio
+Engine: gotpl
+Home: http://kuberlab.com
+Icon: https://storage.googleapis.com/kuberlab/static/favicon.ico
+Keywords:
+- kubernets
+- R
+- RStudion
+- base
+Maintainers:
+- Email: agunin@kuberlab.com
+  Name: Gunin Alexander
+Name: r-studio
+Version: 1.0.0
+Type: mlapp-v2
