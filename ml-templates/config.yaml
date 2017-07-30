@@ -9,6 +9,7 @@ spec:
       replicas: 1
       restartPolicy: Never
       maxRestartCount: 0
+      allowFail: true
       images:
         cpu: "r-base:latest"
       command: Rscript
