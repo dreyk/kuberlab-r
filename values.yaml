@@ -1,1 +1,12 @@
-storage: default
+storage:
+ value: default
+ wizard:
+   name: "Storage Configuration"
+   kind: cluster_storage
+src:
+ value: https://github.com/dreyk/kuberlab-r
+ wizard:
+  name: "Code source"
+  kind: git
+src_path:
+  kuberlab-r/src

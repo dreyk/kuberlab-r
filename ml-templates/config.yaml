@@ -20,6 +20,7 @@ spec:
       - name: training
       - name: src
       - name: data
+      - name: code
   uix:
   - name: rstudio
     displayName: RStudio
@@ -46,29 +47,37 @@ spec:
       mountPath: /home/rstudio/training
     - name: data
       mountPath: /home/rstudio/data
+    - name: code
+      mountPath: /home/rstudio/code
   volumes:
   - isLibDir: false
     isTrainLogDir: true
     mountPath: /training
     name: training
-    clusterStorage: {{ .storage }}
+    clusterStorage: {{ .storage.value }}
     subPath: training
   - gitRepo:
-      repository: https://github.com/dreyk/kuberlab-r
+      repository: {{.src.value}}
     isLibDir: false
     isTrainLogDir: false
     mountPath: /src
     name: src
-    subPath: "/kuberlab-r/src"
+    subPath: "{{ .src_path }}"
   - isLibDir: true
     isTrainLogDir: false
     mountPath: /packages
     name: packages
-    clusterStorage: {{ .storage }}
+    clusterStorage: {{ .storage.value }}
     subPath: packages
   - isLibDir: false
     isTrainLogDir: false
     mountPath: /data
     name: data
-    clusterStorage: {{ .storage }}
+    clusterStorage: {{ .storage.value }}
     subPath: data
+  - isLibDir: false
+    isTrainLogDir: false
+    mountPath: /code
+    name: code
+    clusterStorage: {{ .storage.value }}
+    subPath: code
