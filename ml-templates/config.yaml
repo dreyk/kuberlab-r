@@ -14,7 +14,7 @@ spec:
         cpu: "r-base:3.4.2"
       command: Rscript hello.R
       workdir: "$SRC_DIR"
-    default_volume_mapping: true
+      default_volume_mapping: true
   uix:
   - name: rstudio
     displayName: RStudio
