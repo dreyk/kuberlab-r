@@ -33,7 +33,7 @@ spec:
       protocol: TCP
       name: http
     default_volume_mapping: true
-    default_mount_path: "/rstudio"
+    default_mount_path: "/home/rstudio"
   volumes:
   - isLibDir: false
     mountPath: /workspace/training
