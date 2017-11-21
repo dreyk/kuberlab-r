@@ -12,15 +12,9 @@ spec:
       allowFail: true
       images:
         cpu: "r-base:latest"
-      command: Rscript
-      args: hello.R
+      command: Rscript hello.R
       workdir: "$SRC_DIR"
-      volumes:
-      - name: packages
-      - name: training
-      - name: src
-      - name: data
-      - name: code
+    default_volume_mapping: true
   uix:
   - name: rstudio
     displayName: RStudio
@@ -38,46 +32,31 @@ spec:
       targetPort: 8787
       protocol: TCP
       name: http
-    volumes:
-    - name: packages
-      mountPath: /home/rstudio/packages
-    - name: src
-      mountPath: /home/rstudio/src
-    - name: training
-      mountPath: /home/rstudio/training
-    - name: data
-      mountPath: /home/rstudio/data
-    - name: code
-      mountPath: /home/rstudio/code
+    default_volume_mapping: true
+    default_mount_path: "/rstudio"
   volumes:
   - isLibDir: false
-    isTrainLogDir: true
-    mountPath: /training
+    mountPath: /workspace/training
     name: training
     clusterStorage: {{ .storage.value }}
     subPath: training
   - gitRepo:
       repository: {{.src.value}}
     isLibDir: false
-    isTrainLogDir: false
-    mountPath: /src
+    mountPath: /workspace/src
     name: src
-    subPath: "{{ .src_path }}"
   - isLibDir: true
-    isTrainLogDir: false
-    mountPath: /packages
+    mountPath: /workspace/packages
     name: packages
     clusterStorage: {{ .storage.value }}
     subPath: packages
   - isLibDir: false
-    isTrainLogDir: false
-    mountPath: /data
+    mountPath: /workspace/data
     name: data
     clusterStorage: {{ .storage.value }}
     subPath: data
   - isLibDir: false
-    isTrainLogDir: false
-    mountPath: /code
+    mountPath: /workspace/code
     name: code
     clusterStorage: {{ .storage.value }}
     subPath: code

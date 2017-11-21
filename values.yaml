@@ -8,5 +8,3 @@ src:
  wizard:
   name: "Code source"
   kind: git
-src_path:
-  kuberlab-r/src
