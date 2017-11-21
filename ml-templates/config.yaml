@@ -19,7 +19,7 @@ spec:
   - name: rstudio
     displayName: RStudio
     images:
-      cpu: "rocker/rstudio:latest"
+      cpu: "rocker/rstudio:3.3.1"
     resources:
       requests:
         cpu: 100m
